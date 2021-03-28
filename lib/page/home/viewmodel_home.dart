@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm/core/abstract_base_viewmodel.dart';
 import 'package:flutter_mvvm/core/network.dart';
@@ -22,7 +24,7 @@ class HomeViewModel extends BaseViewModel {
   }
 
   @override
-  Future refreshData(BuildContext context) {
+  Future refreshData(BuildContext context) async {
     //个人比较喜欢这样写，不然要写try catch来包裹代码，try catch不如这样写起来方便，不用一直定义变量
     return NetWork.query().then((String text) {
       _dataObservable.add(text);

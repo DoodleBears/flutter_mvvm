@@ -19,10 +19,15 @@ class _HomePageState extends State<HomePageNoMVVM> {
   }
 
   void loadData() {
+    setState(() {
+      _loading = true;
+      _text = "";
+    });
     NetWork.query().then((String text) {
       setState(() {
         _loading = false;
-        _text = text;
+        _text =
+            text; //here we change the data and using setState to update in view
       });
     }).catchError((error) {
       setState(() {
@@ -42,9 +47,10 @@ class _HomePageState extends State<HomePageNoMVVM> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            RaisedButton(
+            ElevatedButton(
               child: Text("点击重新获取网络数据"),
               onPressed: () {
+                // TODO: without using mvvm, use setState
                 loadData();
               },
             ),
@@ -53,6 +59,7 @@ class _HomePageState extends State<HomePageNoMVVM> {
               child: CircularProgressIndicator(),
             ),
             Expanded(
+              // TODO: using flutter state management setState to update
               child: SingleChildScrollView(
                 child: Text("${_text ?? ""}"),
               ),
